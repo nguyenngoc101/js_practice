@@ -11,10 +11,16 @@ describe('async', function() {
       var fun2 = function(cb, data) {
         setTimeout(cb.bind(null, null, data + 'ing'), 10);
       };
+      var fun3 = function(cb, data) {
+        setTimeout(cb.bind(null, null, data + 'ing3'), 10);
+      };
+      var fun4 = function(cb, data) {
+        setTimeout(cb.bind(null, null, data + 'ing4'), 10);
+      };
 
       // returns a thunk
-      async.sequence([fun1, fun2])(function(err, data) {
-        assert.equal(data, 'testing');
+      async.sequence([fun1, fun2, fun3, fun4])(function(err, data) {
+        assert.equal(data, 'testinging3ing4');
         done();
       });
     });
@@ -29,9 +35,16 @@ describe('async', function() {
         setTimeout(cb.bind(null, null, 'ing'), 10);
       };
 
+      var fun3 = function(cb) {
+        setTimeout(cb.bind(null, null, 'ngoc'), 10);
+      };
+      var fun4 = function(cb) {
+        setTimeout(cb.bind(null, null, 'tho'), 10);
+      };
       // returns a thunk
-      async.parallel([fun1, fun2])(function(err, data) {
-        assert.deepEqual(data, ['test', 'ing']);
+      async.parallel([fun1, fun2, fun3, fun4])(function(err, data) {
+        console.log(data);
+        assert.deepEqual(data, ['test', 'ing', 'ngoc', 'tho']);
         done();
       });
     });
