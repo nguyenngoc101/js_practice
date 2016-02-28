@@ -15,4 +15,9 @@ describe('flatten', function() {
   it('will flatten an array', function() {
     assert.deepEqual(flatten(arr), [1, 2, 3, 4, 5]);
   });
+
+  it('will flatten an array', function() {
+    var arr = [1, [[2, 3]], [4], 5]
+    assert.deepEqual(flatten(arr), [1, 2, 3, 4, 5]);
+  });
 });
